@@ -74,6 +74,7 @@
 		]
 	},
 	"dependencies": {
+		"learnpack": "^0.1.30",
 		"prop-types": "^15.7.2",
 		"query-string": "^7.0.1",
 		"react": "^18.2.0",
