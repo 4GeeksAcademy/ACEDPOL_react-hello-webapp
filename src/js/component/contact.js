@@ -17,7 +17,7 @@ export const Contact = ({ contact }) => {
 
     return (
         <div className="d-flex justify-content-center border-bottom py-3 px-3">
-            <img src="https://picsum.photos/id/237/536/354" className="rounded-circle" alt="contact-image.png" style={{width:150,height:150}}/>
+            <img src={contact.image || "https://picsum.photos/id/237/536/354"} className="rounded-circle" alt="contact-image.png" style={{width:150,height:150}}/>
             <div className="ms-5 w-100">
                 <div className="d-flex justify-content-between align-items-center mb-2">
                     <h5 className="fw-bold text-black m-0">{contact.name}</h5>

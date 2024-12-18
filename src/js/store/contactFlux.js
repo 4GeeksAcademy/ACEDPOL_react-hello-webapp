@@ -8,8 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Acción para cargar algunos contactos predefinidos 
 			loadSampleContacts: () => { 
 				const contacts = [ 
-					{ id: Date.now(), name: "Pol McArny", address: "Av. Las Berzotas, 24", phone: "666717666", email: "culata32@mail.com" },
-					{ id: Date.now() + 1, name: "Johnny Bravo", address: "Av. Del Almendro, 72", phone: "654699632", email: "cableando@yahoo.es" }
+					{ id: Date.now(), name: "Pol McArny", address: "Av. Las Berzotas, 24", phone: "666717666", email: "culata32@mail.com", image: "https://hips.hearstapps.com/es.h-cdn.co/fotoes/images/cinefilia/paul-mccartney-estuvo-a-punto-de-ser-frodo-y-otras-curiosidades/138103190-1-esl-ES/Paul-McCartney-estuvo-a-punto-de-ser-Frodo-y-otras-curiosidades.jpg" },
+					{ id: Date.now() + 1, name: "Johnny Bravo", address: "Av. Del Almendro, 72", phone: "654699632", email: "cableando@yahoo.es", image: "https://static.wikia.nocookie.net/doblaje/images/c/c1/JohnnyBravo.png/revision/latest?cb=20231102032815&path-prefix=es" }
 				]; 
 				setStore({ contacts }); 
 			}, 

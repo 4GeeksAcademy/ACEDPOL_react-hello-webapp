@@ -9,7 +9,8 @@ export const ContactForm = () => {
         name: "",
         address: "",
         phone: "",
-        email: ""
+        email: "",
+        image: ""
     });
     const navigate = useNavigate();
 
@@ -36,7 +37,8 @@ export const ContactForm = () => {
             name: "",
             address: "",
             phone: "",
-            email: ""
+            email: "",
+            image: ""
         });
         actions.setEditingContact(null);
         navigate("/contact-list");
@@ -93,6 +95,18 @@ export const ContactForm = () => {
                         onChange={handleChange}
                         placeholder="Email"
                     />
+                </div>
+                <div className="mb-3"> 
+                    <label htmlFor="image" className="form-label">Image URL</label> 
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        id="image" 
+                        name="image" 
+                        value={contact.image} 
+                        onChange={handleChange} 
+                        placeholder="Image URL" 
+                    /> 
                 </div>
                 <button type="submit" className="btn btn-primary">Save</button>
                 <Link to="/contact-list">
