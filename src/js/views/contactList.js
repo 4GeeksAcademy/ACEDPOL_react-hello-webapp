@@ -18,13 +18,15 @@ export const ContactList = () => {
 				{ Array.isArray(store.contacts) ? (
 					store.contacts.map((contact, index) => {
 						return (
-							<Contact
-								key={index} 
-								name={contact.name} 
-								address={contact.address || "Dirección no disponible"} 
-								phone={contact.phone || "Teléfono no disponible"} 
-								email={contact.email || "Correo no disponible"}
-							/>
+							<div key={index}>
+								<Contact
+									contact={contact} 
+									name={contact.name} 
+									address={contact.address || "Dirección no disponible"} 
+									phone={contact.phone || "Teléfono no disponible"} 
+									email={contact.email || "Correo no disponible"}
+								/>
+							</div>
 						);
 					})
 				) : ( <p>No contacts available</p> )}				
