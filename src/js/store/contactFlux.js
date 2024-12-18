@@ -8,7 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Acción para cargar algunos contactos predefinidos 
 			loadSampleContacts: () => { 
 				const contacts = [ 
-					{ name: "Pol McArny", address: "Av. La Berzosa, 26", phone: "667715500", email: "cubetala96@icloud.com" }
+					{ id: Date.now(), name: "Pol McArny", address: "Av. Las Berzotas, 24", phone: "666717666", email: "culata32@mail.com" },
+					{ id: Date.now() + 1, name: "Johnny Bravo", address: "Av. Del Almendro, 72", phone: "654699632", email: "cableando@yahoo.es" }
 				]; 
 				setStore({ contacts }); 
 			}, 

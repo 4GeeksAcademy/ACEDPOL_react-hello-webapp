@@ -13,8 +13,6 @@ export const Contact = ({ contact }) => {
 
     const handleDeleteClick = () => { 
         actions.deleteContact(contact.id); 
-        // Opcional: Navega de vuelta a la lista de contactos si es necesario 
-        // // navigate("/contact-list"); 
     };
 
     return (

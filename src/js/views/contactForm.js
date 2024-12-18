@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/contactContext";
 import { Link } from "react-router-dom";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const ContactForm = () => {
     const { store, actions } = useContext(Context);
@@ -11,7 +11,6 @@ export const ContactForm = () => {
         phone: "",
         email: ""
     });
-    const { id } = useParams(); 
     const navigate = useNavigate();
 
     useEffect(() => { 
