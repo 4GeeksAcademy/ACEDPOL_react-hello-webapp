@@ -23,8 +23,14 @@ const injectContext = PassedComponent => {
 
 		useEffect(() => {
 			// Carga los contactos (desde el servidor) cuando el componente se monta:
-			state.actions.loadContacts(); 
-            // state.actions.loadSampleContacts();
+			const loadContacts = async () => { 
+				await state.actions.loadContacts(); 
+				if (!Array.isArray(state.store.contacts) || state.store.contacts.length === 0) { 
+					state.actions.loadSampleContacts(); 
+				} 
+			}; 
+
+			loadContacts(); 
 		}, []);
 
 		// The initial value for the context is not null anymore, but the current state of this component,

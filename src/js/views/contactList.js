@@ -8,8 +8,6 @@ export const ContactList = () => {
 
 	useEffect(() => { 
 		// La función loadContacts se llama automáticamente en injectContext 
-		// actions.loadContacts(); 
-		// actions.loadSampleContacts();
 	}, []);
 
 	return (

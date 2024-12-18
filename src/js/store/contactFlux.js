@@ -8,21 +8,24 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Acción para cargar algunos contactos predefinidos 
 			loadSampleContacts: () => { 
 				const contacts = [ 
-					{ name: "Alice", address: "123 Main St", phone: "123-456-7890", email: "alice@example.com" }, 
-					{ name: "Bob", address: "456 Oak Ave", phone: "987-654-3210", email: "bob@example.com" } 
+					{ name: "Pol McArny", address: "Av. La Berzosa, 26", phone: "667715500", email: "cubetala96@icloud.com" }
 				]; 
 				setStore({ contacts }); 
 			}, 
 			// Acción para descargar los contactos del servidor 
-			loadContacts: () => {
-				// Fetch: descarga los contactos del servidor
-				fetch('https://playground.4geeks.com/contact/agendas/acedpol/contacts')
-					.then(response => response.json())
-					.then(data => {
-						setStore({ contacts: data.contacts })
-						console.log("Fetching realizado:", data.contacts)
-					})
-					.catch(error => console.error("Error al descargar los contactos:", error));
+			loadContacts: async () => { 
+				try { 
+					// Fetch: descarga los contactos del servidor
+					const response = await fetch('https://playground.4geeks.com/contact/agendas/acedpol/contacts'); 
+					const data = await response.json(); 
+
+					// Verifica si data no está vacío antes de actualizar el estado 
+					if (Array.isArray(data) && data.length > 0) { 
+						setStore({ contacts: data }); 
+					} 
+				} catch (error) { 
+					console.error("Error al descargar los contactos:", error); 
+				} 
 			},
 			// Acción para agregar un nuevo contacto 
 			addContact: (contact) => { 
