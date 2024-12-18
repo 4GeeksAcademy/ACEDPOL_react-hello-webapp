@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/contactContext";
+import { Link } from "react-router-dom";
 
 export const ContactForm = () => {
   const { actions } = useContext(Context);
@@ -78,7 +79,9 @@ export const ContactForm = () => {
           />
         </div>
         <button type="submit" className="btn btn-primary">Save</button>
-        <a href="/contact-list" className="btn btn-link">or get back to contacts</a>
+        <Link to="/contact-list">
+            <a className="btn btn-link">or get back to contacts</a>
+        </Link>
       </form>
     </div>
   );

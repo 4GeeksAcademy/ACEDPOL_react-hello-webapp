@@ -8,27 +8,30 @@ const getState = ({ getStore, getActions, setStore }) => {
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},
-			loadContacts: () => { 
-				try { 
-					fetch('https://playground.4geeks.com/contact/agendas/acedpol/contacts')
+			loadContacts: () => {
+				// Fetch: descarga los contactos del servidor
+				fetch('https://playground.4geeks.com/contact/agendas/acedpol/contacts')
 					.then(response => response.json())
 					.then(data => setStore({ contacts: data.contacts }))
-
-					// Método con previo 'async' asignado a la función:
-					// const response = await fetch('https://playground.4geeks.com/contact/agendas/acedpol/contacts'); 
-					// if (!response.ok) { 
-					// 	throw new Error(`HTTP error! status: ${response.status}`); 
-					// } 
-					// const data = await response.json(); 
-					// setStore({ contacts: data.contacts });
-				} catch (error) { 
-					console.error("Error fetching contacts:", error); 
-				} 
+					.then(data => console.log("Fetching realizado:", data))
+					.catch(error => console.error("Error al descargar los contactos:", error));
 			},
 			// Acción para agregar un nuevo contacto 
 			addContact: (contact) => { 
-				const store = getStore(); 
+				const store = getStore();
 				setStore({ contacts: [...store.contacts, contact] }); 
+
+				// Post: Envía el nuevo contacto al servidor 
+				fetch('https://playground.4geeks.com/contact/agendas/acedpol/contacts', { 
+					method: 'POST', 
+					headers: { 
+						'Content-Type': 'application/json' 
+					}, 
+					body: JSON.stringify(contact) 
+				})
+				.then(response => response.json())
+				.then(data => console.log("Contacto añadido:", data))
+				.catch(error => console.error("Error al añadir el contacto:", error));
 			},
 			// Acción para cargar algunos contactos 
 			loadSampleContacts: () => { 

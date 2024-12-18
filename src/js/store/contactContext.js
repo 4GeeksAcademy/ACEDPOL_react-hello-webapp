@@ -22,7 +22,7 @@ const injectContext = PassedComponent => {
 		);
 
 		useEffect(() => {
-			// Carga los contactos cuando el componente se monta
+			// Carga los contactos (desde el servidor) cuando el componente se monta:
 			state.actions.loadContacts(); 
             // state.actions.loadSampleContacts();
 		}, []);

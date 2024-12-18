@@ -1,7 +1,6 @@
 import React from "react";
 
 export const Contact = ({ name, address, phone, email }) => (
-    <section className="container w-50">
         <div className="d-flex justify-content-center border-bottom py-3 px-3">
             <img src="https://picsum.photos/id/237/536/354" className="rounded-circle" alt="contact-image.png" style={{width:150,height:150}}/>
             <div className="ms-5 w-100">
@@ -26,5 +25,4 @@ export const Contact = ({ name, address, phone, email }) => (
                 </div>                
             </div>
         </div>
-    </section>
 );

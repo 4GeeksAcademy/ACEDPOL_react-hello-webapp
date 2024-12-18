@@ -13,7 +13,7 @@ export const ContactList = () => {
 	}, []);
 
 	return (
-		<div className="container">
+		<div className="container w-50">
 			<ul className="list-group">
 				{ Array.isArray(store.contacts) ? (
 					store.contacts.map((contact, index) => {
