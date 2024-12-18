@@ -1,40 +1,33 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-
-import { Context } from "../store/appContext";
-
-import "../../styles/demo.css";
+import React, { useEffect, useContext } from "react";
+import { Context } from "../store/contactContext";
 import { Contact } from "../component/contact";
+import { Link } from "react-router-dom";
 
 export const ContactList = () => {
 	const { store, actions } = useContext(Context);
 
+	useEffect(() => { 
+		// La función loadContacts se llama automáticamente en injectContext 
+		// actions.loadContacts(); 
+		// actions.loadSampleContacts();
+	}, []);
+
 	return (
 		<div className="container">
 			<ul className="list-group">
-				{store.demo.map((item, index) => {
-					return (
-                        <Contact></Contact>
-						// <li
-						// 	key={index}
-						// 	className="list-group-item d-flex justify-content-between"
-						// 	style={{ background: item.background }}>
-						// 	<Link to={"/single/" + index}>
-						// 		<span>Link to: {item.title}</span>
-						// 	</Link>
-						// 	{// Conditional render example
-						// 	// Check to see if the background is orange, if so, display the message
-						// 	item.background === "orange" ? (
-						// 		<p style={{ color: item.initial }}>
-						// 			Check store/flux.js scroll to the actions to see the code
-						// 		</p>
-						// 	) : null}
-						// 	<button className="btn btn-success" onClick={() => actions.changeColor(index, "orange")}>
-						// 		Change Color
-						// 	</button>
-						// </li>
-					);
-				})}
+				{ Array.isArray(store.contacts) ? (
+					store.contacts.map((contact, index) => {
+						return (
+							<Contact
+								key={index} 
+								name={contact.name} 
+								address={contact.address || "Dirección no disponible"} 
+								phone={contact.phone || "Teléfono no disponible"} 
+								email={contact.email || "Correo no disponible"}
+							/>
+						);
+					})
+				) : ( <p>No contacts available</p> )}				
 			</ul>
 			<br />
 			<Link to="/">
