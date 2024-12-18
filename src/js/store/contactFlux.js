@@ -1,13 +1,19 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			contacts: [] // lista de contactos
+			contacts: [], // lista de contactos
+			editingContact: null // el contacto que se está editando
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
+			// Acción para cargar algunos contactos predefinidos 
+			loadSampleContacts: () => { 
+				const contacts = [ 
+					{ name: "Alice", address: "123 Main St", phone: "123-456-7890", email: "alice@example.com" }, 
+					{ name: "Bob", address: "456 Oak Ave", phone: "987-654-3210", email: "bob@example.com" } 
+				]; 
+				setStore({ contacts }); 
+			}, 
+			// Acción para descargar los contactos del servidor 
 			loadContacts: () => {
 				// Fetch: descarga los contactos del servidor
 				fetch('https://playground.4geeks.com/contact/agendas/acedpol/contacts')
@@ -35,14 +41,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(data => console.log("Contacto añadido:", data))
 				.catch(error => console.error("Error al añadir el contacto:", error));
 			},
-			// Acción para cargar algunos contactos 
-			loadSampleContacts: () => { 
-				const contacts = [ 
-					{ name: "Alice", address: "123 Main St", phone: "123-456-7890", email: "alice@example.com" }, 
-					{ name: "Bob", address: "456 Oak Ave", phone: "987-654-3210", email: "bob@example.com" } 
-				]; 
-				setStore({ contacts }); 
-			}, 
 			// Acción para fijar el contacto que se está actualizando
 			setEditingContact: (contact) => { 
 				setStore({ editingContact: contact }); 
@@ -66,6 +64,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				.then(response => response.json()) 
 				.then(data => console.log("Contacto actualizado:", data)) 
 				.catch(error => console.error("Error al actualizar el contacto:", error)); 
+			},
+			// Acción para eliminar un contacto de la lista
+			deleteContact: (contactId) => { 
+				const store = getStore(); 
+				const updatedContacts = store.contacts.filter(contact => 
+					contact.id !== contactId
+				); 
+				setStore({ contacts: updatedContacts }); 
+				
+				// Delete: elimina del servidor 
+				fetch(`https://playground.4geeks.com/contact/agendas/acedpol/contacts/${contactId}`, { 
+					method: 'DELETE', 
+					headers: { 
+						'Content-Type': 'application/json' 
+					} 
+				}) 
+				.then(response => response.json()) 
+				.then(data => console.log("Contacto eliminado:", data)) 
+				.catch(error => console.error("Error al eliminar el contacto:", error)); 
 			}
 		}
 	};

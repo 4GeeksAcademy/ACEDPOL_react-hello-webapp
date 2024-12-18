@@ -15,21 +15,15 @@ export const ContactList = () => {
 	return (
 		<div className="container w-50">
 			<ul className="list-group">
-				{ Array.isArray(store.contacts) ? (
+				{ ( Array.isArray(store.contacts) && store.contacts.length > 0 ) ? (
 					store.contacts.map((contact, index) => {
 						return (
 							<div key={index}>
-								<Contact
-									contact={contact} 
-									name={contact.name} 
-									address={contact.address || "Dirección no disponible"} 
-									phone={contact.phone || "Teléfono no disponible"} 
-									email={contact.email || "Correo no disponible"}
-								/>
+								<Contact contact={contact} />
 							</div>
 						);
 					})
-				) : ( <p>No contacts available</p> )}				
+				) : ( <p className="fw-bold text-danger">No contacts available...</p> )}				
 			</ul>
 			<br />
 			<Link to="/">
