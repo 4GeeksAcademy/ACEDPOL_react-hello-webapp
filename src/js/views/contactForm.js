@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/contactContext";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom"
 
 export const ContactForm = () => {
     const { store, actions } = useContext(Context);
@@ -13,12 +13,28 @@ export const ContactForm = () => {
         image: ""
     });
     const navigate = useNavigate();
+    const location = useLocation();
+    const [formKey, setFormKey] = useState(Date.now());
+
+    const resetContact = () => {
+        setContact({
+            name: "",
+            address: "",
+            phone: "",
+            email: "",
+            image: ""
+        });
+        actions.setEditingContact(null);
+        setFormKey(Date.now());
+    }
 
     useEffect(() => { 
-        if (store.editingContact) { 
+        if (store.editingContact && location.pathname !== "/add-contact") { 
             setContact(store.editingContact); 
-        }
-    }, [store.editingContact]);
+        } else if (location.pathname === "/add-contact") { 
+            resetContact(); 
+        } 
+    }, [store.editingContact, location.pathname]);
 
     const handleChange = (e) => {
         setContact({ ...contact, [e.target.name]: e.target.value });
@@ -33,23 +49,16 @@ export const ContactForm = () => {
             actions.addContact(contact); 
         }
 
-        setContact({
-            name: "",
-            address: "",
-            phone: "",
-            email: "",
-            image: ""
-        });
-        actions.setEditingContact(null);
+        resetContact();
         navigate("/contact-list");
     };
 
     return (
         <div className="container w-50">
-            <h2 className="my-4">{store.editingContact ? "Edit Contact" : "Add a new contact"}</h2>
-            <form onSubmit={handleSubmit}>
+            <h2 className="my-4 fw-bolder">{store.editingContact ? "Edit Contact" : "Add a new contact"}</h2>
+            <form onSubmit={handleSubmit} key={formKey}>
                 <div className="mb-3">
-                    <label htmlFor="name" className="form-label">Full Name</label>
+                    <label htmlFor="name" className="form-label fw-bolder">Full Name</label>
                     <input
                         type="text"
                         className="form-control"
@@ -61,7 +70,7 @@ export const ContactForm = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="address" className="form-label">Address</label>
+                    <label htmlFor="address" className="form-label fw-bolder">Address</label>
                     <input
                         type="text"
                         className="form-control"
@@ -73,7 +82,7 @@ export const ContactForm = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="phone" className="form-label">Phone</label>
+                    <label htmlFor="phone" className="form-label fw-bolder">Phone</label>
                     <input
                         type="text"
                         className="form-control"
@@ -85,7 +94,7 @@ export const ContactForm = () => {
                     />
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="email" className="form-label">Email</label>
+                    <label htmlFor="email" className="form-label fw-bolder">Email</label>
                     <input
                         type="email"
                         className="form-control"
@@ -97,7 +106,7 @@ export const ContactForm = () => {
                     />
                 </div>
                 <div className="mb-3"> 
-                    <label htmlFor="image" className="form-label">Image URL</label> 
+                    <label htmlFor="image" className="form-label fw-bolder">Image URL</label> 
                     <input 
                         type="text" 
                         className="form-control" 
@@ -110,7 +119,7 @@ export const ContactForm = () => {
                 </div>
                 <button type="submit" className="btn btn-primary">Save</button>
                 <Link to="/contact-list">
-                    <a className="btn btn-link">or get back to contacts</a>
+                    <p className="btn btn-link">or get back to contacts</p>
                 </Link>
             </form>
         </div>
